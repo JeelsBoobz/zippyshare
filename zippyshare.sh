@@ -3,7 +3,7 @@
 # @Author: Live2x
 # @Recode: JeelsBoobz
 # @URL: https://github.com/JeelsBoobz/zippyshare
-# @Version: 201811270001
+# @Version: 201811190001
 # @Date: 2018-11-19
 # @Usage: ./zippyshare.sh url
 

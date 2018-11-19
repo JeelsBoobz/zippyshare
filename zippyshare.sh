@@ -1,7 +1,7 @@
 #!/bin/bash
 # @Description: zippyshare.com file download script
 # @Author: Live2x
-# @Revode: JeelsBoobz
+# @Recode: JeelsBoobz
 # @URL: https://github.com/img2tab/zippyshare
 # @Version: 201811270001
 # @Date: 2018-11-19

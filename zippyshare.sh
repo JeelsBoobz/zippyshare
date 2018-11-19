@@ -3,8 +3,8 @@
 # @Author: Live2x
 # @Recode: JeelsBoobz
 # @URL: https://github.com/JeelsBoobz/zippyshare
-# @Version: 201811190001
-# @Date: 2018-11-19
+# @Version: 201811200001
+# @Date: 2018-11-20
 # @Usage: ./zippyshare.sh url
 
 urldecode() {
@@ -39,7 +39,7 @@ function zippydownload()
         --keep-session-cookies \
         --save-cookies="${cookiefile}" \
         --quiet
-        filename="$( grep 'og:title' "${infofile}" | grep -Po '(?<=<meta property="og:title" content=").*?(?= " />)')"
+        filename="$( cat "${infofile}" | grep "/d/" | cut -d'/' -f6 | cut -d'"' -f1 | grep -o "[^ ]\+\(\+[^ ]\+\)*" )"
     done
 
     if [ "${retry}" -ge 10 ]
@@ -63,7 +63,8 @@ function zippydownload()
         dlbutton="$( grep 'poster=true&amp;time=' "${infofile}" | grep -Po '(?<=poster=true&amp;time=).*?(?=">)')"
         if [ -n "${dlbutton}" ]
         then
-           algorithm=$((${dlbutton:(-3)} + 1 + 2 + 3 + 4 + 5 / 5 ))
+           algorithm="${dlbutton:(-3)}+11"
+           echo "${dlbutton:(-3)}"
         else
            echo "could not get zippyshare url algorithm"
            exit 1

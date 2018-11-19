@@ -64,7 +64,6 @@ function zippydownload()
         if [ -n "${dlbutton}" ]
         then
            algorithm="${dlbutton:(-3)}+11"
-           echo "${dlbutton:(-3)}"
         else
            echo "could not get zippyshare url algorithm"
            exit 1

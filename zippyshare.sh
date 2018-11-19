@@ -6,6 +6,11 @@
 # @Date: 2018-06-27
 # @Usage: ./zippyshare.sh url
 
+urldecode() {
+    local url_encoded="${1//+/ }"
+    printf '%b' "${url_encoded//%/\\x}"
+}
+
 if [ -z "${1}" ]
 then
     echo "usage: ${0} url"
@@ -81,10 +86,10 @@ function zippydownload()
     # Set browser agent
     agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36"
 
-    echo "${filename}"
+    echo "$(urldecode ${filename})"
 
     # Start download file
-    wget -c -O "${filename}" "${dl}" \
+    wget -c -O "$(urldecode ${filename})" "${dl}" \
     -q --show-progress \
     --referer="${ref}" \
     --cookies=off --header "Cookie: JSESSIONID=${jsessionid}" \

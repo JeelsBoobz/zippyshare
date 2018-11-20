@@ -60,14 +60,19 @@ function zippydownload()
     if [ -f "${infofile}" ]
     then
         # Get url algorithm
-        dlbutton="$( grep 'poster=true&amp;time=' "${infofile}" | grep -Po '(?<=poster=true&amp;time=).*?(?=">)')"
+        dlbutton="$( grep 'getElementById..dlbutton...href' "${infofile}" | grep -oE '\([0-9].*\)' )"
         if [ -n "${dlbutton}" ]
         then
-           algorithm="${dlbutton:(-3)}+11"
+           algorithm="${dlbutton}"
         else
            echo "could not get zippyshare url algorithm"
            exit 1
         fi
+
+        algorithm=${algorithm/"a()"/"1"}
+        algorithm=${algorithm/"b()"/"2"}
+        algorithm=${algorithm/"c()"/"3"}
+        algorithm=${algorithm/"d"/"4"}
 
         a="$( echo $(( ${algorithm} )) )"
         # Get ref, server, id

@@ -3,8 +3,8 @@
 # @Author: Live2x
 # @Recode: JeelsBoobz
 # @URL: https://github.com/JeelsBoobz/zippyshare
-# @Version: 201811200001
-# @Date: 2018-11-20
+# @Version: 201811190001
+# @Date: 2018-11-19
 # @Usage: ./zippyshare.sh url
 
 urldecode() {
@@ -60,10 +60,10 @@ function zippydownload()
     if [ -f "${infofile}" ]
     then
         # Get url algorithm
-        dlbutton="$( grep 'poster=true&amp;time=' "${infofile}" | grep -Po '(?<=poster=true&amp;time=).*?(?=">)')"
+        dlbutton="$( grep 'getElementById..dlbutton...href' "${infofile}" | grep -oE '\([0-9].*\)' | sed "s/a()/1/g;" | sed "s/b()/2/g;" | sed "s/c()/3/g;" | sed "s/ d / 4 /g;" )"
         if [ -n "${dlbutton}" ]
         then
-           algorithm="${dlbutton:(-3)}+11"
+           algorithm="${dlbutton}"
         else
            echo "could not get zippyshare url algorithm"
            exit 1

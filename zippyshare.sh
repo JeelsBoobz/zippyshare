@@ -1,12 +1,15 @@
 #!/bin/bash
 # @Description: zippyshare.com file download script
-# @Author: Live2x
-# @URL: https://github.com/img2tab/zippyshare
-# @Version: 201904200001
+# @Author: JeelsBoobz
+# @URL: https://github.com/JeelsBoobz/zippyshare
+# @Version: 201906200001
 # @Date: 2019-04-20
 # @Usage: ./zippyshare.sh url
 
-function decodeURL() { printf "%b\n" "$(sed 's/+/ /g; s/%\([0-9a-f][0-9a-f]\)/\\x\1/g;')"; }
+function decodeURL()
+{
+    printf "%b\n" "$(sed 's/+/ /g; s/%\([0-9a-f][0-9a-f]\)/\\x\1/g;')";
+}
 
 if [ -z "${1}" ]
 then

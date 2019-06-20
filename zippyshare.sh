@@ -3,7 +3,7 @@
 # @Author: JeelsBoobz
 # @URL: https://github.com/JeelsBoobz/zippyshare
 # @Version: 201906200001
-# @Date: 2019-04-20
+# @Date: 2019-06-20
 # @Usage: ./zippyshare.sh url
 
 function decodeURL()

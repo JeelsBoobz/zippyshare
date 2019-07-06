@@ -86,7 +86,7 @@ function zippydownload()
 
     # Build download url
     dl="https://${server}/d/${id}/${result}/${filename}"
-    echo "${dl}"
+    # echo "${dl}"
 
     # Set browser agent
     agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"

@@ -65,18 +65,20 @@ function zippydownload()
         a="$(( a / 3))"
         b="$( grep 'var b = ' "${infofile}" | tail -n 1 | cut -d' ' -f8 | cut -d';' -f1 )"
         dlbutton="$( grep 'document.getElementById..dlbutton' "${infofile}" | tail -n 1 | cut -d'=' -f2 | cut -d'(' -f2 | cut -d')' -f1 | grep -o "[0-9]*" )"
-        result="$(( ${dlbutton} % ${b} + ${a} ))"
+        result="$(( ${a} + ${dlbutton} % ${b} ))"
+	# echo "${a}\n${b}\n${dlbutton}"
         if [ -z "${result}" ]; then
            echo "could not get zippyshare url algorithm"
            exit 1
         fi
 
         # Get ref, server, id
-        ref="$( cat "${infofile}" | grep 'property="og:url"' | cut -d'"' -f4 | grep -o "[^ ]\+\(\+[^ ]\+\)*" )"
+        ref="$( cat "${infofile}" | grep 'property="og:url"' | cut -d'"' -f4)" #| grep -o "[^ ]\+\(\+[^ ]\+\)*" )"
 
         server="$( echo "${ref}" | cut -d'/' -f3 )"
 
         id="$( echo "${ref}" | cut -d'/' -f5 )"
+	# echo "\n${ref}"
     else
         echo "can't find info file for ${prefix}"
         exit 1
@@ -84,6 +86,7 @@ function zippydownload()
 
     # Build download url
     dl="https://${server}/d/${id}/${result}/${filename}"
+    echo "${dl}"
 
     # Set browser agent
     agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"

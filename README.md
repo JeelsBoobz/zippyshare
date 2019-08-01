@@ -1,4 +1,4 @@
-## zippyshare.sh
+## zippyshare
 ### bash script for downloading zippyshare files
 
 ##### Download single file from zippyshare

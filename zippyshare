@@ -33,8 +33,13 @@ function usage(){
         printf "\t-d OUTDIR | --dir OUTDIR    : indicate the output directory name\n"
 }
 
+if [ -z "${1}" ]
+then
+    usage
+    exit
+fi
+
 function exit_error(){
-        clean
         exit 1;
 }
 

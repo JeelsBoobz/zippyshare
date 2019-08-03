@@ -6,25 +6,6 @@
 # @Date: 2019-08-01
 # @Usage: ./zippyshare.sh url
 
-OPTIND=1
-OUTDIR=""
-
-while getopts "h?d:" opt; do
-    case "$opt" in
-    h|\?)
-        usage
-        exit 0
-        ;;
-    d)  echo "[+] Save to directory [$2]";
-        OUTDIR="${2}/";
-        ;;
-    esac
-done
-
-shift $((OPTIND-1))
-
-[ "${1:-}" = "--" ] && shift
-
 function usage(){
         printf "[*] Usage : $0 [OPTIONS] <url>\n"
         printf "[*] Batch Usage : $0 [OPTIONS] <file_list.txt>\n\n"
@@ -32,12 +13,6 @@ function usage(){
         printf "\t-h | --help                 : print this help message\n"
         printf "\t-d OUTDIR | --dir OUTDIR    : indicate the output directory name\n"
 }
-
-if [ -z "${1}" ]
-then
-    usage
-    exit
-fi
 
 function exit_error(){
         exit 1;
@@ -132,6 +107,32 @@ function zippydownload()
     rm -f "${cookiefile}" 2> /dev/null
     rm -f "${infofile}" 2> /dev/null
 }
+
+OPTIND=1
+OUTDIR=""
+
+while getopts "h?d:" opt; do
+    case "$opt" in
+    h|\?)
+        usage
+        exit 0
+        ;;
+    d)
+        echo "[+] Save to directory [$2]"
+        OUTDIR="${2}/"
+        ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+[ "${1:-}" = "--" ] && shift
+
+if [ -z "${1}" ] || [ "${1}" == "-" ]
+then
+    usage
+    exit_error
+fi
 
 if [ -f "${1}" ]
 then

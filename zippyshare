@@ -78,12 +78,11 @@ function zippydownload()
         fi
 
         # Get ref, server, id
-        ref="$( cat "${infofile}" | grep 'property="og:url"' | cut -d'"' -f4)" #| grep -o "[^ ]\+\(\+[^ ]\+\)*" )"
-
+        # ref="$( cat "${infofile}" | grep 'property="og:url"' | cut -d'"' -f4)" #| grep -o "[^ ]\+\(\+[^ ]\+\)*" )"
+	ref="${url}"
         server="$( echo "${ref}" | cut -d'/' -f3 )"
-
         id="$( echo "${ref}" | cut -d'/' -f5 )"
-	# echo "\n${ref}"
+	# echo "${ref}"
     else
         echo "can't find info file for ${prefix}"
         exit 1

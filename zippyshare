@@ -2,9 +2,9 @@
 # @Description: zippyshare.com file download script
 # @Author: JeelsBoobz
 # @URL: https://github.com/JeelsBoobz/zippyshare
-# @Version: 201908030801
-# @Date: 2019-08-03
-# @Usage: ./zippyshare.sh url
+# @Version: 201908230739
+# @Date: 2019-08-23
+# @Usage: ./zippyshare url
 
 function usage(){
         printf "[*] Usage : $0 [OPTIONS] <url>\n"

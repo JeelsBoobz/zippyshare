@@ -2,8 +2,8 @@
 # @Description: zippyshare.com file download script
 # @Author: JeelsBoobz
 # @URL: https://github.com/JeelsBoobz/zippyshare
-# @Version: 201908230739
-# @Date: 2019-08-23
+# @Version: 201908280708
+# @Date: 2019-08-28
 # @Usage: ./zippyshare url
 
 function usage(){
@@ -37,7 +37,8 @@ function zippydownload()
         let retry+=1
         rm -f "${cookiefile}" 2> /dev/null
         rm -f "${infofile}" 2> /dev/null
-         wget -O "${infofile}" "${url}" \
+        wget -O "${infofile}" "${url}" \
+	    --no-hsts \
         --cookies=on \
         --keep-session-cookies \
         --save-cookies="${cookiefile}" \
@@ -64,25 +65,16 @@ function zippydownload()
 
     if [ -f "${infofile}" ]
     then
-        # Get url algorithm
-        # a="$( grep 'var a = ' "${infofile}" | tail -n 1 | cut -d' ' -f8 | cut -d';' -f1 )"
-        # a="$(( a / 3))"
-        # b="$( grep 'var b = ' "${infofile}" | tail -n 1 | cut -d' ' -f8 | cut -d';' -f1 )"
-        # dlbutton="$( grep 'document.getElementById..dlbutton' "${infofile}" | tail -n 1 | cut -d'=' -f2 | cut -d'(' -f2 | cut -d')' -f1 | grep -o "[0-9]*" )"
-	dlbutton="$( grep 'document.getElementById..dlbutton' "${infofile}" | tail -n 1 | cut -d'=' -f2 | cut -d'(' -f2 | cut -d')' -f1)"
+        # Get url algorithm 1 | cut -d'=' -f2 | cut -d'(' -f2 | cut -d')' -f1 | grep -o "[0-9]*" )"
+	    dlbutton="$( grep 'document.getElementById..dlbutton' "${infofile}" | tail -n 1 | cut -d'=' -f2 | cut -d'(' -f2 | cut -d')' -f1)"
         result="$(( ${dlbutton} ))"
-	# echo "${dlbutton}"
+	    # echo "${dlbutton}"
         if [ -z "${result}" ]; then
            echo "could not get zippyshare url algorithm"
            exit 1
         fi
-
-        # Get ref, server, id
-        # ref="$( cat "${infofile}" | grep 'property="og:url"' | cut -d'"' -f4)" #| grep -o "[^ ]\+\(\+[^ ]\+\)*" )"
-	ref="${url}"
         server="$( echo "${ref}" | cut -d'/' -f3 )"
         id="$( echo "${ref}" | cut -d'/' -f5 )"
-	# echo "${ref}"
     else
         echo "can't find info file for ${prefix}"
         exit 1
@@ -98,10 +90,12 @@ function zippydownload()
     echo "[+] ${filename}"
 
     # Start download file
-     wget -c -O "${OUTDIR}${filename}" "${dl}" \
+    wget -c -O "${OUTDIR}${filename}" "${dl}" \
     -q --show-progress \
+    --no-hsts \
     --referer="${ref}" \
-    --cookies=off --header "Cookie: JSESSIONID=${jsessionid}" \
+    --load-cookies="${cookiefile}" \
+    --header "Cookie: JSESSIONID=${jsessionid}" \
     --user-agent="${agent}"
     rm -f "${cookiefile}" 2> /dev/null
     rm -f "${infofile}" 2> /dev/null

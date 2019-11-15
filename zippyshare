@@ -97,10 +97,10 @@ function zippydownload()
 	# Set browser agent
 	agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
 
-	echo "[+] $(echo ${filename})"
+	echo "[+] $( echo ${filename} | decodeURL )"
 
 	# Start download file
-	 wget -c -O "${OUTDIR}$(echo ${filename} | decodeURL )" "${dl}" \
+	 wget -c -O "${OUTDIR}$( echo ${filename} | decodeURL )" "${dl}" \
 	-q --show-progress \
 	--no-hsts \
 	--referer="${ref}" \

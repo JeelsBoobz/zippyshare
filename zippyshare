@@ -2,8 +2,8 @@
 # @Description: zippyshare.com file download script
 # @Author: JeelsBoobz
 # @URL: https://github.com/JeelsBoobz/zippyshare
-# @Version: 201908302336
-# @Date: 2019-08-30
+# @Version: 202005251633
+# @Date: 2020-05-25
 # @Usage: ./zippyshare url
 
 function usage(){
